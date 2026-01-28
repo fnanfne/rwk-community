@@ -1,0 +1,21 @@
+# Keep C/C++ sources consistent (LF in repo)
+*.cpp text eol=lf
+*.h   text eol=lf
+*.c   text eol=lf
+*.hpp text eol=lf
+*.cmake text eol=lf
+CMakeLists.txt text eol=lf
+
+# Windows scripts
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binaries
+*.png binary
+*.jpg binary
+*.exe binary
+*.dll binary
+*.lib binary
+*.pdb binary
+*.idb binary
+*.ilk binary

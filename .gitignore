@@ -1,0 +1,78 @@
+# ----------------------------
+# IDE / tooling
+# ----------------------------
+.idea/
+.vscode/
+*.user
+*.suo
+*.VC.db
+*.VC.opendb
+
+# ----------------------------
+# Build output folders (common)
+# ----------------------------
+**/Debug/
+**/Release/
+**/x64/
+**/Win32/
+**/build/
+**/Build/
+cmake-build-*/
+out/
+bin/
+obj/
+
+# ----------------------------
+# Compiled artifacts (ignore by default)
+# ----------------------------
+*.obj
+*.o
+*.a
+*.exp
+*.ilk
+*.idb
+*.ipdb
+*.iobj
+*.pdb
+*.tlog
+*.pch
+*.sbr
+*.bsc
+*.ncb
+*.aps
+*.res
+*.manifest
+*.log
+
+# Executables (usually build outputs)
+*.exe
+
+# Ignore DLLs & LIBs by default...
+*.dll
+*.lib
+
+# ----------------------------
+# Allow REQUIRED shipped/vendor binaries
+# ----------------------------
+
+# SDL / vendor libs required to link (includes OpenGL32.lib)
+!Framework/OS/Windows/SDL_2020/Lib/
+!Framework/OS/Windows/SDL_2020/Lib/*.lib
+
+# If you have a DLLs folder under Windows framework (runtime dependencies)
+!Framework/OS/Windows/DLLs/
+!Framework/OS/Windows/DLLs/*.dll
+
+# If RWK ships runtime DLLs in Resources
+!Games/RWK/Resources/
+!Games/RWK/Resources/*.dll
+
+# If the project includes other vendor DLL folders, add similar allow-rules:
+# !Framework/OS/Windows/**/DLLs/
+# !Framework/OS/Windows/**/DLLs/*.dll
+
+# ----------------------------
+# Restricted third-party binaries (keep excluded)
+# ----------------------------
+Framework/OS/Windows/DLLs/bass.dll
+Games/RWK/Resources/bass.dll
