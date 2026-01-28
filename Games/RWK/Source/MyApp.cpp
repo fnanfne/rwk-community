@@ -92,7 +92,8 @@ MyApp::MyApp()
 	mAutoGamecenter=false;
 	mAcceptedTerms=false;
 
-	SetAppName("RWK");
+	//SetAppName("RWK");
+	SetAppName("RWK_COM");
 	SetAppVersion("Alpha 0");
 
 	String aCMD=GetCommandLine();
