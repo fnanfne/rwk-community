@@ -58,6 +58,7 @@ obj/
 # SDL / vendor libs required to link (includes OpenGL32.lib)
 !Framework/OS/Windows/SDL_2020/Lib/
 !Framework/OS/Windows/SDL_2020/Lib/*.lib
+!Framework/OS/Windows/BASS/bass.lib
 
 # If you have a DLLs folder under Windows framework (runtime dependencies)
 !Framework/OS/Windows/DLLs/
