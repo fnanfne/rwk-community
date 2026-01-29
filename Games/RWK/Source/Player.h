@@ -266,6 +266,12 @@ public:
 	void			Sync(SaveGame &theSG);
 	bool			mNullKitty;
 
+	// NEW: Reference to the player character
+	Player* mRobot; // This should be Robot
+
+	// NEW: Facing direction
+	float mFacing; // +1 = right, -1 = left
+
 };
 
 class Pickup : public Player

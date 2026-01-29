@@ -1267,11 +1267,28 @@ void World::Sync(SaveGame &theSaveGame)
 	if (theSaveGame.IsLoading()) mScrollCenter=mRobot->mPos;
 	theSaveGame.EndChunk();
 
+	// OLD
+	//
+	// Sync kitty location...
+	//
+	//theSaveGame.StartChunk();
+	//if (theSaveGame.IsLoading()) {mKitty=new Kitty();mPlayerList+=mKitty;}
+	//theSaveGame.Sync(&mKitty->mPos.mX);
+	//theSaveGame.Sync(&mKitty->mPos.mY);
+	//theSaveGame.EndChunk();
+
+	// NEW COMMUNITY for Kitty always facing Robot
 	//
 	// Sync kitty location...
 	//
 	theSaveGame.StartChunk();
-	if (theSaveGame.IsLoading()) {mKitty=new Kitty();mPlayerList+=mKitty;}
+	if (theSaveGame.IsLoading()) {
+		mKitty = new Kitty();
+		mPlayerList += mKitty;
+
+		// NEW: wire Kitty to the Robot we just created above
+		mKitty->mRobot = mRobot;
+	}
 	theSaveGame.Sync(&mKitty->mPos.mX);
 	theSaveGame.Sync(&mKitty->mPos.mY);
 	theSaveGame.EndChunk();

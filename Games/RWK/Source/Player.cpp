@@ -1977,6 +1977,11 @@ Kitty::Kitty(void)
 
 //	mCollide=Rect(-10,-22,20,46);
 	mCollide=Rect(-10,-12,20,36);
+
+	// NEW: Initialize facing fields
+	mRobot = nullptr;
+	mFacing = 1.0f; // default: facing right like original art
+
 }
 
 Kitty::~Kitty(void)
@@ -2186,12 +2191,62 @@ void Kitty::Update()
 	}
 }
 
+/*
 void Kitty::Draw()
 {
 	if (mNullKitty) return;
 	gBundle_Play->mKitty.Center(mPos);
 	gBundle_Play->mKitty_Tail[mTailFrame[(int)mTail]].Center(mPos);
 	if (mBlinkCountdown) gBundle_Play->mKitty_Blink.Center(mPos);
+}
+*/
+
+// NEW COMMUNITY code for Kitty always facing Robot
+void Kitty::Draw()
+{
+	if (mNullKitty) return;
+
+	// --- Decide which way to face based on Robot's X ---
+	if (mRobot != nullptr)
+	{
+		float dx = mRobot->mPos.mX - mPos.mX;
+
+		const float deadZone = 4.0f; // pixels
+
+		if (dx < -deadZone) {
+			// Robot clearly left -> face left
+			mFacing = -1.0f;
+		}
+		else if (dx > deadZone) {
+			// Robot clearly right -> face right
+			mFacing = 1.0f;
+		}
+		// else: keep last facing to avoid jitter
+	}
+
+	if (mFacing >= 0.0f)
+	{
+		// Facing right (normal orientation)
+		gBundle_Play->mKitty.Center(mPos);
+
+		gBundle_Play->mKitty_Tail[mTailFrame[(int)mTail]].Center(mPos);
+
+		if (mBlinkCountdown) {
+			gBundle_Play->mKitty_Blink.Center(mPos);
+		}
+	}
+	else
+	{
+		// Facing left: flip horizontally
+		gBundle_Play->mKitty.DrawFlipped(mPos.mX, mPos.mY, -1, 1.0f);
+
+		Sprite& tailSprite = gBundle_Play->mKitty_Tail[mTailFrame[(int)mTail]];
+		tailSprite.DrawFlipped(mPos.mX, mPos.mY, -1, 1.0f);
+
+		if (mBlinkCountdown) {
+			gBundle_Play->mKitty_Blink.DrawFlipped(mPos.mX, mPos.mY, -1, 1.0f);
+		}
+	}
 }
 
 Pickup::Pickup(void)
