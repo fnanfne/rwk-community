@@ -220,6 +220,10 @@ void MyApp::LoadComplete()
 	gAppPtr->mSettings.RegisterVariable("AvatarVersion",mAvatarVersion,0);
 	gAppPtr->mSettings.RegisterVariable("TutorDialog",mShowTutorDialog,true);
 	gAppPtr->mSettings.RegisterVariable("AlwaysGlitchy",mAlwaysShowGlitchyLevels,false);
+
+	// NEW
+	gAppPtr->mSettings.RegisterVariable("RestartWindow",mEnableRestartConfirm,true);
+
 	gAppPtr->mSettings.RegisterVariable("DisableCustomMusic",mDisableCustomMusic,false);
 
 	gAppPtr->mSettings.RegisterVariable("TouchControls",mTouchControls,mTouchControls);
@@ -734,6 +738,9 @@ GameSettingsDialog* MyApp::GoSettings()
 	aPanel->Add(new DialogCheckbox("ASK ABOUT TUTORIAL",&gApp.mShowTutorDialog));
 	aPanel->Add(new DialogCheckbox("DISABLE CUSTOM MUSIC",&gApp.mDisableCustomMusic));
 	aPanel->Add(new DialogCheckbox("ALLOW GLITCHY LEVELS",&gApp.mAlwaysShowGlitchyLevels));
+
+	// NEW COMMUNITY
+	aPanel->Add(new DialogCheckbox("ENABLE RESTART CONFIRM",&gApp.mEnableRestartConfirm));
 
 	aPanel->Add(new DialogNextPanel("H@XX0R STUFF","HACK",aDialog->mHack));
 

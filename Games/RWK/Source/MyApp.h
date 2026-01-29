@@ -184,6 +184,8 @@ public:
 
 	bool						mAlwaysShowGlitchyLevels;
 
+	bool						mEnableRestartConfirm=true;   // NEW COMMUNITY - default ON
+
 	//
 	// Control stuff
 	//
