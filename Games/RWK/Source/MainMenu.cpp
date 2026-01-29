@@ -1771,13 +1771,26 @@ void InGameMenu::TouchStart(int x, int y)
 		}
 		*/
 
-		// NEW COMMUNITY - restart confirmation
+		// NEW COMMUNITY - restart confirmation (toggleable)
 		if (Rect(110,110).GetCenterAt(100,150).ExpandLeft(70).ContainsPoint(x,y))
 		{
-			//
-			// Restart Level – with confirmation
-			//
 			gSounds->mSelect.PlayPitched(1.5f);
+
+			auto DoRestart = [&]()
+			{
+				gWorld->mPlayMusic = false;
+				gGame->RestartLevel();
+
+				// close the menu
+				mFadeSpeed = -0.1f;
+				mFadeResult = 0;
+			};
+
+			if (!gApp.mEnableRestartConfirm)
+			{
+				DoRestart();
+				return;
+			}
 
 			MsgBox* aBox = new MsgBox;
 			aBox->GoX(
@@ -1788,16 +1801,10 @@ void InGameMenu::TouchStart(int x, int y)
 				{
 					if (theResult == "YES")
 					{
-						gWorld->mPlayMusic = false;
-						gGame->RestartLevel();
-
-						// 🔑 Also fade out and close the in-game menu itself
-						mFadeSpeed = -0.1f;
-						mFadeResult = 0;
+						DoRestart();
 					}
 					// NO / cancel → do nothing
-				}
-				)
+				})
 			);
 
 			return;
