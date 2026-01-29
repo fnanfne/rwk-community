@@ -1756,6 +1756,8 @@ void InGameMenu::TouchStart(int x, int y)
 			gScrollAccum=1000;
 		}
 
+		// OLD
+		/*
 		if (Rect(110,110).GetCenterAt(100,150).ExpandLeft(70).ContainsPoint(x,y))
 		{
 			//
@@ -1765,6 +1767,39 @@ void InGameMenu::TouchStart(int x, int y)
 			gWorld->mPlayMusic=false;
 			gGame->RestartLevel();
 			mFadeSpeed=-.1f;
+			return;
+		}
+		*/
+
+		// NEW COMMUNITY - restart confirmation
+		if (Rect(110,110).GetCenterAt(100,150).ExpandLeft(70).ContainsPoint(x,y))
+		{
+			//
+			// Restart Level – with confirmation
+			//
+			gSounds->mSelect.PlayPitched(1.5f);
+
+			MsgBox* aBox = new MsgBox;
+			aBox->GoX(
+				"ARE YOU SURE YOU WANT TO RESTART THE LEVEL?!",
+				gGCenter(),
+				1,
+				MBHOOK(
+				{
+					if (theResult == "YES")
+					{
+						gWorld->mPlayMusic = false;
+						gGame->RestartLevel();
+
+						// 🔑 Also fade out and close the in-game menu itself
+						mFadeSpeed = -0.1f;
+						mFadeResult = 0;
+					}
+					// NO / cancel → do nothing
+				}
+				)
+			);
+
 			return;
 		}
 

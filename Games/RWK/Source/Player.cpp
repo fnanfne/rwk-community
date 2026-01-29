@@ -1560,8 +1560,30 @@ void Robot::DrawBot()
 		}
 		else 
 		{
-			gBundle_Play->mRobot_Jump.Draw(aMat);
-			if (mHasHelmet) gBundle_Play->mRobot_Jump_Helmet.Draw(aMat);
+			//gBundle_Play->mRobot_Jump.Draw(aMat);
+			//if (mHasHelmet) gBundle_Play->mRobot_Jump_Helmet.Draw(aMat);
+			// mGravity < 0 -> going UP
+			// mGravity > 0 -> falling DOWN
+			// small band around 0 = apex, treat as falling
+			const float apexEpsilon = 0.15f;
+			bool isAscending = (mGravity < -apexEpsilon);
+
+			if (isAscending)
+			{
+				// Jumping UP → rocket pose
+				gBundle_Play->mRobot_Rocket.Draw(aMat);
+				if (mHasHelmet)
+					gBundle_Play->mRobot_Rocket_Helmet.Draw(aMat);
+			}
+			else
+			{
+				// Falling DOWN → regular jump pose
+				gBundle_Play->mRobot_Jump.Draw(aMat);
+				if (mHasHelmet)
+					gBundle_Play->mRobot_Jump_Helmet.Draw(aMat);
+				// or keep your Idleshoot helmet if you prefer that look:
+				// if (mHasHelmet) gBundle_Play->mRobot_Idleshoot_Helmet.Draw(aMat);
+			}
 		}
 	}
 	else if (mPushing)
